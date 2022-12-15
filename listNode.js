@@ -89,6 +89,40 @@ class SinglyLinkedList{
         }
         return sum/count;
     }
+
+    removeBack() {
+        let runner = this.head;
+        let frontrunner = runner.next;
+        while(runner.next !== null) {
+            if(frontrunner.next === null) {
+                runner.next = null;
+                return frontrunner.data;
+            }
+            runner = runner.next;
+            frontrunner = frontrunner.next;
+        }
+    }
+
+    contains(val) {
+        if(this.isEmpty()) return false
+        var runner = this.head;
+        while (runner != null){
+            if (runner.data == val){
+                return true;
+            }
+            runner = runner.next;
+        }
+        return false;
+    }
+
+    containsRecursive(val, current = this.head) {
+        if(this.isEmpty()) return false
+        if (current.data == val) return true;
+        if(current.next != null){
+            return this.containsRecursive(val, current.next)
+        }
+        return false;
+    }
 }
 
 // const emptyList = new SinglyLinkedList().isEmpty();
@@ -109,8 +143,12 @@ biNodeList.insertAtFront(8);
 firstThreeList.insertAtFront(20);
 
 console.log(singleNodeList.toArr());
-console.log(biNodeList.toArr());
-console.log(firstThreeList.toArr());
-singleNodeList.removeHead();
+// console.log(biNodeList.toArr());
+// console.log(firstThreeList.toArr());
+// singleNodeList.removeHead();
+// console.log(singleNodeList.toArr());
+// console.log(singleNodeList.average());
+singleNodeList.removeBack();
 console.log(singleNodeList.toArr());
-console.log(singleNodeList.average());
+biNodeList.removeBack();
+console.log(biNodeList.toArr());
