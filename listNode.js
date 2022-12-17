@@ -123,7 +123,49 @@ class SinglyLinkedList{
         }
         return false;
     }
-}
+
+    recursiveMax(runner = this.head, maxNode = this.head){
+        if (this.head === null) return null
+        if (runner === null) return maxNode.data
+        if(runner.data > maxNode.data) maxNode = runner
+        return this.recursiveMax(runner.next, maxNode);
+    }
+
+    secondToLast() {
+        if(this.isEmpty()) return null
+        else {
+            let runner = this.head
+            let spy = runner.next
+            while(spy.next !== null) {
+                runner = runner.next
+                spy = spy.next
+            }
+            return runner.data
+        }
+    }
+
+    removeVal(val) {
+        var runner = this.head;
+        var forwardRunner = runner.next;
+        var original = this.toArr();
+        if(runner.data == val){
+            this.head = forwardRunner;
+            return true;
+        }
+        while(forwardRunner.next != null && forwardRunner.data != val) {
+            runner = runner.next;
+            forwardRunner = forwardRunner.next;
+        }
+        if(forwardRunner.data == val) {
+            runner.next = forwardRunner.next;
+            forwardRunner.next = null;
+            return true;
+        }
+        return false;
+    }
+
+    prepend(newVal, targetVal) {}
+} 
 
 // const emptyList = new SinglyLinkedList().isEmpty();
 // console.log(emptyList)
