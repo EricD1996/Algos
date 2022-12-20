@@ -81,6 +81,43 @@ class BinarySearchTree {
         return (this.max()-this.min());
     }
 
+    insert(newVal) {
+        let current = this.root;
+        let newNode = new BSTNode(newVal);
+        if(current == null){
+            this.root = newNode;
+            return this;
+        }
+        while(current){
+            if(newVal < current.data && current.left == null){
+                current.left = newNode;
+                return this;
+            } else if(newVal > current.data && current.right == null){
+                current.right = newNode;
+                return this;
+            }
+            if(newVal < current.data && current.left != null){
+                current = current.left;
+            } else if(newVal > current.data && current.right != null){
+                current = current.right;
+            }
+        }
+
+    }
+
+    insertRecursive(newVal, curr = this.root) {
+        if(curr == null){
+            this.root = new BSTNode(newVal);
+            return this;
+        }
+        if(newVal < curr.data && curr.left != null){
+            return this.insertRecursive(newVal, curr.left);
+        } else if(newVal > curr.data && curr.right != null){
+            return this.insertRecursive(newVal, curr.right);
+        } else if(newVal < curr.data && curr.left == null){
+            return curr.left = new BSTNode(newVal);
+        }
+    }
 }
 
 const emptyTree = new BinarySearchTree();
@@ -99,6 +136,9 @@ threeLevelTree.root.left.left = new BSTNode(2);
 threeLevelTree.root.left.right = new BSTNode(6);
 threeLevelTree.root.right = new BSTNode(15);
 threeLevelTree.root.right.left = new BSTNode(13);
-console.log(threeLevelTree.maxRecursive());
-console.log(threeLevelTree.containsRecursive(5));
-console.log(threeLevelTree.range());
+// console.log(threeLevelTree.maxRecursive());
+// console.log(threeLevelTree.containsRecursive(5));
+// console.log(threeLevelTree.range());
+
+threeLevelTree.insertRecursive(1);
+console.log(threeLevelTree);
