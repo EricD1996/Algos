@@ -54,6 +54,33 @@ class BinarySearchTree {
         );
         this.print(node.left, spaceCnt);
     }
+
+    contains(searchVal) {
+        let runner = this.root;
+        while(runner != null) {
+            if(runner.data > searchVal) runner = runner.left;
+            else if(runner.data < searchVal) runner = runner.right;
+            else if(runner.data === searchVal) return true;
+        }
+        return false;
+    }
+
+    containsRecursive(searchVal, current = this.root) {
+        if(current.data > searchVal){
+            return this.containsRecursive(searchVal, current.left);
+        } else if(current.data < searchVal){
+            return this.containsRecursive(searchVal, current.right);
+        } else if(current.data === searchVal) {
+            return true;
+        }
+        return false;
+    }
+
+    range(startNode = this.root) {
+        if(this.isEmpty() || (startNode.left == null && startNode.right == null)) return null;
+        return (this.max()-this.min());
+    }
+
 }
 
 const emptyTree = new BinarySearchTree();
@@ -73,3 +100,5 @@ threeLevelTree.root.left.right = new BSTNode(6);
 threeLevelTree.root.right = new BSTNode(15);
 threeLevelTree.root.right.left = new BSTNode(13);
 console.log(threeLevelTree.maxRecursive());
+console.log(threeLevelTree.containsRecursive(5));
+console.log(threeLevelTree.range());
