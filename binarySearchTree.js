@@ -185,18 +185,26 @@ class BinarySearchTree {
         return 1 + this.size(node.left) + this.size(node.right);
     }
 
-    size(node = this.root, count = 0){
-        if(node){
-            this.size(node.left, count++);
-            this.size(node.right, count++);
-            count++;
-        }
-        return count;
+    // size(node = this.root, count = 0){
+    //     if(node){
+    //         this.size(node.left, count++);
+    //         this.size(node.right, count++);
+    //         count++;
+    //     }
+    //     return count;
+    // }
+
+    height(node = this.root) {
+        if (!node) return 0;
+        return 1 + Math.max(this.height(node.left) + this.height(node.right));
     }
 
-    height(node = this.root) {}
-
-    iffull(node = this.root) {}
+    isFull(node = this.root) {
+        if(node === null) return false;
+        if(!node.right && !node.left) return true;
+        if(node.left && node.right) return (this.isFull(node.left) && this.isFull(node.right))
+        return false;
+    }
 }
 
 const emptyTree = new BinarySearchTree();
