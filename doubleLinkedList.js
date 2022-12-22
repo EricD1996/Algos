@@ -41,7 +41,29 @@ class DoublyLinkedList {
         return this;
     }
 
-    removeMiddleNode() {}
+    removeMiddleNode() {
+        if(!this.isEmpty() && this.head === this.tail) {
+            const removedData = this.head.data;
+            this.head = null;
+            this.tail = null;
+            return removedData;
+        }
+        let forwardRunner = this.head;
+        let backwardsRunner = this.tail;
+
+        while(forwardRunner && backwardsRunner) {
+            if(forwardRunner === backwardsRunner){
+                const midNode = forwardRunner;
+                midNode.prev.next = midNode.next;
+                midNode.next.prev = midNode.prev;
+                return midNode.data;
+            }
+            if(forwardRunner.prev === backwardsRunner) return null;
+            forwardRunner = forwardRunner.next;
+            backwardsRunner = backwardsRunner.prev;
+        }
+        return null;
+    }
 
     isEmpty() {
         return this.head === null;
@@ -61,6 +83,10 @@ class DoublyLinkedList {
         items.forEach((item) => this.insertAtBack(item))
         return this;
     }
+
+    insertAfter(targetVal, newVal) {}
+
+    insertBefore(targetVal, newVal) {}
 }
 
 const emptyList = new DoublyLinkedList();
